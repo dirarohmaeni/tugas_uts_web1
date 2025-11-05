@@ -2,7 +2,7 @@
 ### Nama: Dira Rohmaeni
 ### NIM: 312410465
 ### Kelas / Prodi: TI.24.A5 / Teknik Informatika
-### Dosen Pengampu: [Nama Dosen Kamu]
+### Dosen Pengampu: Agung Nugroho, S.Kom., M.Kom.
 
 ## Deskripsi Proyek
 

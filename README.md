@@ -72,20 +72,11 @@ tugas_uts/
 
 
 ## Cara Menjalankan Proyek
-
-1. Buka folder tugas-uts-web1 di Visual Studio Code
-
-2. Jalankan Live Server pada index.html
-
-   - Klik kanan → Open with Live Server
-   
-3.Masukkan akun contoh:
-
-  - Email: rina@gmail.com
-
-  - Password: rina123
-
-4. Kamu akan diarahkan ke halaman Dashboard, lalu bisa menjelajahi seluruh fitur.
+1. Buka `index.html` di browser  
+2. Login menggunakan akun dari `data.js`  
+3. Jalankan urutan:
+   - Stok → Checkout → Laporan → Tracking  
+4. Nikmati animasi pengiriman otomatis
 
 
 ## Fungsi JavaScript Utama

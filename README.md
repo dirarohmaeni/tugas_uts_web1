@@ -107,7 +107,7 @@ Isi video mencakup:
 4. Kesimpulan & cara menjalankan web.
 
 **Link Pengumpulan Video:**  
-[Tambahkan link Google Drive / YouTube kamu di sini]
+**(https://youtu.be/OU6iVx_OKXA)** 
 
 
 ## 💡 Catatan & Kendala

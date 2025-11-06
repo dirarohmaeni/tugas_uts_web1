@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laporan Pemesanan - Toko Buku</title>
+
+    <!-- Bootstrap & Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js" defer></script>
+  </head>
+
+  <body data-page="laporan" class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-edu shadow-sm">
+      <div class="container position-relative">
+        <a
+          class="btn btn-logout btn-sm position-absolute start-0 text-white"
+          href="dashboard.html"
+        >
+          <i class="bi bi-arrow-left"></i> Kembali
+        </a>
+        <a class="navbar-brand text-white mx-auto fw-semibold" href="#">
+          <i class="bi bi-book"></i> Toko Buku
+        </a>
+      </div>
+    </nav>
+
+    <!-- Konten -->
+    <main class="container my-5">
+      <div class="card shadow-sm p-4 rounded-4 border-0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-semibold mb-0">
+            <i class="bi bi-clipboard-data"></i> Laporan Pemesanan
+          </h4>
+
+          <!-- Tombol Aksi -->
+          <div>
+            <button class="btn btn-sm btn-edu me-2" onclick="refreshLaporan()">
+              <i class="bi bi-arrow-repeat"></i> Refresh
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="hapusSemuaLaporan()">
+              <i class="bi bi-trash"></i> Hapus Semua
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabel Laporan -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped align-middle">
+            <thead class="table-light text-center">
+              <tr>
+                <th>No</th>
+                <th>Nomor DO</th>
+                <th>Nama Pemesan</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Metode</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="laporan-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Muat laporan dari localStorage
+      function loadLaporan() {
+        const tbody = document.getElementById("laporan-body");
+        const riwayat =
+          JSON.parse(localStorage.getItem("riwayatPesanan")) || [];
+        tbody.innerHTML = "";
+
+        if (riwayat.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center text-muted py-3">
+                Belum ada pesanan yang tersimpan.
+              </td>
+            </tr>`;
+          return;
+        }
+
+        let i = 1;
+        riwayat.forEach((p, index) => {
+          const badgeClass =
+            p.status === "Selesai"
+              ? "bg-success text-white"
+              : "bg-warning text-dark";
+          const badgeText = p.status === "Selesai" ? "Selesai" : "Diproses";
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-center">${i++}</td>
+            <td>${p.nomorDO}</td>
+            <td>${p.nama}</td>
+            <td>${p.tanggal}</td>
+            <td class="text-center">
+              <span class="badge ${badgeClass} px-3 py-2">${badgeText}</span>
+            </td>
+            <td>Rp ${p.total.toLocaleString("id-ID")}</td>
+            <td>${p.metode}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-edu me-1" onclick="lihatTracking('${
+                p.nomorDO
+              }')">
+                <i class="bi bi-truck"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" onclick="hapusLaporan(${index})">
+                <i class="bi bi-x-circle"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // 🔄 Refresh data laporan
+      function refreshLaporan() {
+        loadLaporan();
+        alert("Laporan diperbarui!");
+      }
+
+      // 🗑️ Hapus semua laporan
+      function hapusSemuaLaporan() {
+        if (confirm("Apakah kamu yakin ingin menghapus semua data laporan?")) {
+          localStorage.removeItem("riwayatPesanan");
+          loadLaporan();
+          alert("Semua laporan telah dihapus!");
+        }
+      }
+
+      // ❌ Hapus satu laporan berdasarkan indeks
+      function hapusLaporan(index) {
+        if (confirm("Hapus pesanan ini dari laporan?")) {
+          const riwayat =
+            JSON.parse(localStorage.getItem("riwayatPesanan")) || [];
+          riwayat.splice(index, 1);
+          localStorage.setItem("riwayatPesanan", JSON.stringify(riwayat));
+          loadLaporan();
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadLaporan);
+    </script>
+  </body>
+</html>

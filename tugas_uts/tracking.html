@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tracking - Toko Buku</title>
+
+    <!-- Bootstrap & Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body data-page="tracking" class="bg-light">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-edu shadow-sm">
+      <div class="container position-relative">
+        <a
+          class="btn btn-logout btn-sm position-absolute start-0 text-white"
+          href="laporan.html"
+        >
+          <i class="bi bi-arrow-left"></i> Kembali
+        </a>
+        <a class="navbar-brand text-white mx-auto fw-semibold" href="#">
+          <i class="bi bi-book"></i> Toko Buku
+        </a>
+      </div>
+    </nav>
+
+    <!-- KONTEN TRACKING -->
+    <main class="container my-5">
+      <div class="card shadow-sm p-4 rounded-4 border-0">
+        <h4 class="fw-semibold mb-3">
+          <i class="bi bi-truck"></i> Informasi Pengiriman
+        </h4>
+
+        <div class="row g-2 align-items-center mt-2">
+          <div class="col-md-8">
+            <input
+              id="inputTracking"
+              class="form-control form-control-lg"
+              placeholder="Masukkan nomor DO (misal: DO-12345)"
+            />
+          </div>
+          <div class="col-md-4">
+            <button id="btnCariTracking" class="btn btn-edu btn-lg w-100">
+              <i class="bi bi-search"></i> Cari
+            </button>
+          </div>
+        </div>
+
+        <div id="tracking-result" class="mt-4"></div>
+
+        <div class="text-end mt-3 d-none" id="selesai-wrapper">
+          <button
+            id="btnPesananSelesai"
+            class="btn btn-edu fw-semibold px-4 py-2"
+          >
+            <i class="bi bi-check2-circle"></i> Pesanan Selesai
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // ✅ Toast Notifikasi
+      function showToast(message, type = "success") {
+        const colors = {
+          success: "#198754",
+          error: "#dc3545",
+          info: "#0d6efd",
+          warning: "#ffc107",
+        };
+
+        const toast = document.createElement("div");
+        toast.textContent = message;
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.right = "20px";
+        toast.style.background = colors[type];
+        toast.style.color = "#fff";
+        toast.style.padding = "12px 18px";
+        toast.style.borderRadius = "10px";
+        toast.style.boxShadow = "0 3px 10px rgba(0,0,0,0.2)";
+        toast.style.zIndex = "2000";
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.3s ease";
+        document.body.appendChild(toast);
+
+        setTimeout(() => (toast.style.opacity = "1"), 100);
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          setTimeout(() => toast.remove(), 300);
+        }, 2500);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("inputTracking");
+        const btnCari = document.getElementById("btnCariTracking");
+        const result = document.getElementById("tracking-result");
+        const selesaiWrapper = document.getElementById("selesai-wrapper");
+
+        btnCari.addEventListener("click", () => {
+          const kode = input.value.trim();
+          if (!kode) {
+            result.innerHTML =
+              "<p class='text-danger'>Masukkan nomor DO terlebih dahulu!</p>";
+            return;
+          }
+
+          let progress = 0;
+          result.innerHTML = `
+            <div class="card p-3 border-0 shadow-sm" style="background-color:#f0f6ff;">
+              <h5 class="text-primary">Nomor DO: <b>${kode}</b></h5>
+              <div class="progress my-3" style="height:16px; background:#e2e8f0;">
+                <div id="progressBar" class="progress-bar bg-edu" style="width: 0%">0%</div>
+              </div>
+              <p id="statusText" class="fw-semibold text-secondary">📦 Menunggu Konfirmasi...</p>
+            </div>
+          `;
+
+          selesaiWrapper.classList.add("d-none");
+          const progressBar = document.getElementById("progressBar");
+          const statusText = document.getElementById("statusText");
+
+          const tahap = [
+            "📦 Menunggu Konfirmasi...",
+            "🛠️ Sedang Diproses...",
+            "🎁 Dikemas oleh Penjual...",
+            "🚚 Dalam Pengiriman...",
+            "✅ Pesanan Terkirim!",
+          ];
+
+          let step = 0;
+          const interval = setInterval(() => {
+            if (step < tahap.length) {
+              progress += 25;
+              progressBar.style.width = progress + "%";
+              progressBar.textContent = progress + "%";
+              statusText.textContent = tahap[step];
+              step++;
+            } else {
+              clearInterval(interval);
+              showToast("Pesanan sudah dikirim!", "info");
+              selesaiWrapper.classList.remove("d-none");
+            }
+          }, 1500);
+        });
+
+        // 🔹 Tombol “Pesanan Selesai”
+        document
+          .getElementById("btnPesananSelesai")
+          .addEventListener("click", () => {
+            const kode = input.value.trim();
+            const progressBar = document.getElementById("progressBar");
+            const statusText = document.getElementById("statusText");
+
+            progressBar.style.width = "100%";
+            progressBar.textContent = "100%";
+            progressBar.classList.remove("bg-edu");
+            progressBar.classList.add("bg-success");
+            statusText.textContent = "🎉 Pesanan Selesai! Terima kasih 💖";
+
+            const riwayat =
+              JSON.parse(localStorage.getItem("riwayatPesanan")) || [];
+            const pesanan = riwayat.find((p) => p.nomorDO === kode);
+
+            if (pesanan) {
+              pesanan.status = "Selesai";
+              localStorage.setItem("riwayatPesanan", JSON.stringify(riwayat));
+              showToast(
+                "Status pesanan selesai, kembali ke Dashboard...",
+                "success"
+              );
+              setTimeout(() => (window.location.href = "dashboard.html"), 1500);
+            } else {
+              showToast("Nomor DO tidak ditemukan!", "error");
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

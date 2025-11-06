@@ -1,0 +1,215 @@
+:root {
+  --edu-pink: #f48fb1;
+  --edu-pink-dark: #ec407a;
+  --card-radius: 12px;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #ffffff;
+  color: #2c2c2c;
+}
+
+.bg-page {
+  background: linear-gradient(135deg, #ffe4ec, #ffffff 40%);
+}
+
+.login-card {
+  width: 380px;
+  border-radius: 14px;
+}
+
+.btn-edu {
+  background: var(--edu-pink);
+  color: #fff;
+  border: none;
+  transition: 0.3s;
+}
+.btn-edu:hover {
+  background: var(--edu-pink-dark);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.card-dashboard {
+  border-radius: var(--card-radius);
+  box-shadow: 0 6px 18px rgba(244, 143, 177, 0.15);
+}
+
+.card {
+  border-radius: var(--card-radius);
+  border: 1px solid #f8cdd8;
+}
+
+.table thead th {
+  vertical-align: middle;
+}
+
+.card img {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.navbar {
+  background: var(--edu-pink) !important;
+}
+
+.navbar-brand,
+.navbar a,
+.navbar .btn {
+  color: white !important;
+}
+
+.progress-bar.bg-success {
+  background-color: var(--edu-pink) !important;
+}
+
+/* Hover states */
+a {
+  color: var(--edu-pink-dark);
+}
+a:hover {
+  color: var(--edu-pink);
+}
+
+.form-control:focus {
+  border-color: var(--edu-pink);
+  box-shadow: 0 0 0 0.2rem rgba(244, 143, 177, 0.25);
+}
+
+.badge.bg-success {
+  background-color: var(--edu-pink) !important;
+}
+.badge.bg-warning {
+  background-color: #ffd54f !important;
+  color: #333;
+}
+
+#tableKatalog img {
+  transition: transform 0.2s ease;
+}
+#tableKatalog img:hover {
+  transform: scale(1.05);
+}
+
+/* === Tombol Logout Pink Lebih Tua === */
+.navbar .btn-logout {
+  background-color: #d81b60 !important;
+  box-shadow: 0 3px 6px rgba(216, 27, 96, 0.3);
+  color: #fff !important;
+  border: none;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.navbar .btn-logout:hover {
+  background-color: #ad1457 !important;
+  box-shadow: 0 5px 10px rgba(173, 20, 87, 0.4);
+  color: #fff !important;
+}
+
+/* === Tombol Tambah & Konfirmasi Pembayaran === */
+.btn-tambah {
+  background-color: var(--edu-pink) !important;
+  color: #fff !important;
+  border: none;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: 0.3s;
+  box-shadow: 0 3px 6px rgba(244, 143, 177, 0.3);
+}
+
+.btn-tambah:hover {
+  background-color: var(--edu-pink-dark) !important;
+  box-shadow: 0 5px 10px rgba(236, 64, 122, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Tombol konfirmasi pembayaran */
+.btn-konfirmasi {
+  background-color: var(--edu-pink) !important;
+  color: #fff !important;
+  border: none;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 8px;
+  transition: 0.3s;
+  box-shadow: 0 3px 6px rgba(244, 143, 177, 0.3);
+}
+
+.btn-konfirmasi:hover {
+  background-color: var(--edu-pink-dark) !important;
+  box-shadow: 0 5px 10px rgba(236, 64, 122, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-logout i {
+  margin-right: 6px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.navbar {
+  background-color: var(--edu-pink) !important;
+  position: relative;
+  padding: 10px 0;
+}
+
+/* Judul di tengah */
+.navbar .navbar-brand {
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Tombol kiri */
+.navbar .btn-logout {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #d81b60 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: 0.3s;
+  padding: 6px 14px;
+}
+
+.navbar .btn-logout:hover {
+  background-color: #ad1457 !important;
+  color: #fff !important;
+}
+
+.btn-edu {
+  background-color: #f48fb1;
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-edu:hover {
+  background-color: #ec407a;
+  transform: translateY(-1px);
+}
+
+.btn-konfirmasi {
+  background-color: #f48fb1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.btn-konfirmasi:hover {
+  background-color: #ec407a;
+  color: white;
+  transform: translateY(-1px);
+}
